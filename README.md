@@ -14,7 +14,7 @@ Make sure to add your project/company to https://github.com/natritmeyer/site_pri
 
 ## 概要
 
-Here's an overview of how SitePrism is designed to be used:
+SitePrismをどのように使うかの概要:
 
 ```ruby
 # define our site's pages
@@ -139,8 +139,8 @@ As you might be able to guess from the name, pages are fairly central to
 the Page Object Model. Here's how SitePrism models them:
 
 ### Page Modelの作成
-The simplest page is one that has nothing defined in it. Here's an
-example of how to begin modelling a home page:
+何も定義されていない最もシンプルなページ
+以下の例からHomeのpage作成を開始する:
 
 ```ruby
 class Home < SitePrism::Page
@@ -150,8 +150,8 @@ end
 The above has nothing useful defined, only the name.
 
 ### URLの追加
-A page usually has a URL. If you want to be able to navigate to a page,
-you'll need to set its URL. Here's how:
+ページはたいていURLをもつ
+ページナビゲーションを行うにはURLを設定する必要がある:
 
 ```ruby
 class Home < SitePrism::Page
@@ -181,7 +181,7 @@ class UserProfile < SitePrism::Page
 end
 ```
 
-...and a more complex example:
+...そしてより複雑な例:
 
 ```ruby
 class Search < SitePrism::Page
@@ -291,8 +291,7 @@ expect(@account_page).to be_displayed(id: 22)
 expect(@account_page.url_matches['query']['token']).to eq "ca2786616a4285bc"
 ```
 
-#### Falling back to basic regexp matchers
-
+#### basic regexp matchersの使用
 If SitePrism's built-in URL matching is not sufficient for your needs
  you can override and use SitePrism's previous support for regular expression-based
 URL matchers by it by calling `set_url_matcher`:
@@ -315,8 +314,8 @@ end
 ```
 
 ### 現在のURLの取得
-SitePrism allows you to get the current page's URL. Here's how it's
-done:
+SitePrismは現在のページURLを取得可能。
+次のようにして取得:
 
 ```ruby
 class Account < SitePrism::Page
@@ -329,7 +328,7 @@ expect(@account.current_url).to include "example.com/account/"
 ```
 
 ### タイトルの取得
-Getting a page's title isn't hard:
+ページタイトルの取得は難しくない:
 
 ```ruby
 class Account < SitePrism::Page
@@ -365,8 +364,8 @@ element collections would be items in any sort of list, eg: menu items,
 images in a carousel, etc.
 
 ### 単一の要素
-To interact with individual elements, they need to be defined as part of
-the relevant page. SitePrism makes this easy:
+単一の要素を紐づけるためには、ページの一部として定義する必要がある。
+SitePrismでは簡単に定義可能:
 
 ```ruby
 class Home < SitePrism::Page
@@ -404,8 +403,8 @@ end
 
 #### 要素が存在することのテスト
 
-Another method added to the Page class by the `element` method is the
-`has_<element name>?` method. Using the same example as above:
+`element` メソッドの追加により、Pageクラスに`has_<element name>?` メソッドも追加される
+Using the same example as above:
 
 ```ruby
 class Home < SitePrism::Page
