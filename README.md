@@ -139,7 +139,7 @@ As you might be able to guess from the name, pages are fairly central to
 the Page Object Model. Here's how SitePrism models them:
 
 ### Page Modelの作成
-何も定義されていない最もシンプルなページ
+何も定義されていない最もシンプルなページ。
 以下の例からHomeのpage作成を開始する:
 
 ```ruby
@@ -150,8 +150,7 @@ end
 The above has nothing useful defined, only the name.
 
 ### URLの追加
-ページはたいていURLをもつ
-ページナビゲーションを行うにはURLを設定する必要がある:
+ページはたいていURLをもつ。ページナビゲーションを行うにはURLを設定する必要がある:
 
 ```ruby
 class Home < SitePrism::Page
