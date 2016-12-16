@@ -10,7 +10,7 @@ SitePrism gives you a simple, clean and semantic DSL for describing your site us
 
 [![Build Status](https://travis-ci.org/natritmeyer/site_prism.png)](https://travis-ci.org/natritmeyer/site_prism)
 
-あなたのproject/companyをこちらに追加して欲しい https://github.com/natritmeyer/site_prism/wiki/Who-is-using-SitePrism
+あなたのproject/companyをこちらに追加して欲しい: https://github.com/natritmeyer/site_prism/wiki/Who-is-using-SitePrism
 
 ## 概要
 
