@@ -158,7 +158,7 @@ class Home < SitePrism::Page
 end
 ```
 
-If you've set Capybara's `app_host` then you can set the URL as follows:
+Capybaraの `app_host` をセットすることで次のようにも定義できる:
 
 ```ruby
 class Home < SitePrism::Page
@@ -171,8 +171,7 @@ directly to that page. It makes sense to set the URL for a page model of a home
 page or a login page, but probably not a search results page.
 
 #### URLパラメータの使用
-SitePrism uses the Addressable gem and therefore allows for parameterized URLs. Here is
-a simple example:
+SitePrism はアドレス指定可能なgemを使っているのでパラメータURLも扱うことができる:
 
 ```ruby
 class UserProfile < SitePrism::Page
@@ -241,7 +240,7 @@ class Account < SitePrism::Page
 end
 ```
 
-The following test code would pass:
+次のコードはテストをパスする:
 
 ```ruby
 @account_page = Account.new
@@ -301,8 +300,7 @@ end
 ```
 
 #### Page表示のテスト
-SitePrism's `#displayed?` predicate method allows for semantic code in
-your test:
+`#displayed?` メソッドはテストで利用可能:
 
 ```ruby
 Then /^the account page is displayed$/ do
@@ -338,9 +336,7 @@ end
 ```
 
 ### HTTP vs. HTTPS
-
-You can easily tell if the page is secure or not by checking to see if
-the current URL begins with 'https' or not. 
+一般に現在のURLが'https'で始まるかどうかチェックすることで簡単にセキュアなページかそうでないかが判断できる。
 SitePrism `secure?` メソッドにより現在のURLが'https'で始まればtrue、そうでなければfalseを返す:
 
 ```ruby
@@ -369,9 +365,8 @@ class Home < SitePrism::Page
 end
 ```
 
-Here we're adding a search field to the Home page. The `element` method
-takes 2 arguments: the name of the element as a symbol, and a css selector
-as a string.
+Here we're adding a search field to the Home page. 
+`element`メソッドは２つの引数をもつ。要素名としてのシンボルとcssセレクタ文字列.
 
 #### 単一要素へのアクセス
 `element` メソッドはPageクラスのインスタンスに多くのメソッドを追加する.
@@ -497,10 +492,7 @@ of seconds to wait. Using the above example:
 ```
 
 #### CSS Selectors vs. XPath Expressions
-
-While the above examples all use CSS selectors to find elements, it is
-possible to use XPath expressions too. In SitePrism, everywhere that you
-can use a CSS selector, you can use an XPath expression. An example:
+上の例はCSSセレクタの例だが、XPathもどこでも使用可能:
 
 ```ruby
 class Home < SitePrism::Page
@@ -538,11 +530,8 @@ end
 ```
 
 ### 要素の集合
-
-Sometimes you don't want to deal with an individual element but rather
-with a collection of similar elements, for example, a list of names. To
-enable this, SitePrism provides the `elements` method on the Page class.
-Here's how it works:
+例えば名前のリストのように、単一の要素ではなく要素集合を用いたいときがある。
+SitePrismではPageクラスにおいて`elements`メソッドを利用する:
 
 ```ruby
 class Friends < SitePrism::Page
