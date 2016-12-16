@@ -6,11 +6,11 @@ _A Page Object Model DSL for Capybara_
 
 SitePrism gives you a simple, clean and semantic DSL for describing your site using the Page Object Model pattern, for use with Capybara in automated acceptance testing.
 
-Find the pretty documentation here: http://rdoc.info/gems/site_prism/frames
+整形されたドキュメントはこちら: http://rdoc.info/gems/site_prism/frames
 
 [![Build Status](https://travis-ci.org/natritmeyer/site_prism.png)](https://travis-ci.org/natritmeyer/site_prism)
 
-Make sure to add your project/company to https://github.com/natritmeyer/site_prism/wiki/Who-is-using-SitePrism
+あなたのproject/companyをこちらに追加して欲しい https://github.com/natritmeyer/site_prism/wiki/Who-is-using-SitePrism
 
 ## 概要
 
@@ -87,7 +87,7 @@ Then /^the search results contain a link to the wikipedia sausages page$/ do
 end
 ```
 
-Now for the details...
+次に詳細を...
 
 ## セットアップ
 ### インストール
@@ -119,24 +119,20 @@ require 'site_prism'
 
 ## Page Object Modelのイントロダクション
 
-The Page Object Model is a test automation pattern that aims to create
-an abstraction of your site's user interface that can be used in tests.
-The most common way to do this is to model each page as a class, and
-to then use instances of those classes in your tests.
+Page Object Modelはテストに使うWebサイトのユーザインタフェースを抽象化することを目的とした
+テスト自動化パターンである.
+最も一般的な方法はページをクラスとしてモデル化し、テストでそのインスタンスを使う方法である.
 
-If a class represents a page then each element of the page is
-represented by a method that, when called, returns a reference to that
-element that can then be acted upon (clicked, set text value), or
-queried (is it enabled? visible?).
+クラスがページを表してページの要素がメソッドにより表されるとすると、
+メソッドを呼ばれることでその要素に対するアクション(clicked, set text value)、もしくは問い合わせされた状態(is it enabled? visible?)が返される.
 
-SitePrism is based around this concept, but goes further as you'll see
-below by also allowing modelling of repeated sections that appear on
-multiple pages, or many times on a page using the concept of sections.
+SitePrismはこのコンセプトに基づいていて、さらに単一ページで複数回現れる、
+または複数ページで繰り返し現れるセクションのモデル化も可能になる.
 
 ## Pages
 
-As you might be able to guess from the name, pages are fairly central to
-the Page Object Model. Here's how SitePrism models them:
+名前から想像される通り、PagesはPage Object Modelの中心的な存在になる. 
+SitePrismではPagesをどのようにモデル化するかを説明する:
 
 ### Page Modelの作成
 何も定義されていない最もシンプルなページ。
@@ -166,9 +162,8 @@ class Home < SitePrism::Page
 end
 ```
 
-Note that setting a URL is optional - you only need to set a url if you want to be able to navigate
-directly to that page. It makes sense to set the URL for a page model of a home
-page or a login page, but probably not a search results page.
+URLの設定はオプションである - ページへの直接の遷移が必要なときのみ必要になる.
+ホームページやログインページにURLをセットするが、検索結果にはおそらくいらないということが理解できる.
 
 #### URLパラメータの使用
 SitePrism はアドレス指定可能なgemを使っているのでパラメータURLも扱うことができる:
@@ -210,7 +205,7 @@ end
 @user_profile.load(username: 'bob') #=> loads /users/bob
 ```
 
-...and...
+...そして...
 
 ```ruby
 class Search < SitePrism::Page
@@ -222,8 +217,7 @@ end
 @search.load(query: {'color'=> 'red', 'text'=> 'blue'}) #=> loads /search?color=red&text=blue
 ```
 
-This will tell whichever capybara driver you have configured to
-navigate to the URL set against that page's class.
+Capybara driverがPageクラスに設定されたURLに対して遷移させていることがわかる
 
 https://github.com/sporkmonger/addressable にパラメータURLの詳細が記載されている.
 
