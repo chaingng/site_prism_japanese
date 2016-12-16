@@ -460,19 +460,6 @@ example:
 @home.wait_until_search_field_visible(10)
 ```
 
-#### 要素が見えるまで待つ
-Another method added by calling `element` is the
-`wait_until_<element_name>_invisible` method. Calling this method will
-cause the test to wait for Capybara's default wait time for the element
-to become invisible. You can customise the wait time be supplying a number
-of seconds to wait. Using the above example:
-
-```ruby
-@home.wait_until_search_field_invisible
-# or...
-@home.wait_until_search_field_invisible(10)
-```
-
 #### CSS Selectors vs. XPath Expressions
 上の例はCSSセレクタの例だが、XPathもどこでも使用可能:
 
