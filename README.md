@@ -402,7 +402,7 @@ end
 @home.search_field.text #=> standard method on a capybara element; returns a string
 ```
 
-#### Testing for the existence of the element
+#### 要素が存在することのテスト
 
 Another method added to the Page class by the `element` method is the
 `has_<element name>?` method. Using the same example as above:
@@ -431,7 +431,7 @@ Then /^the search field exists$/ do
 end
 ```
 
-#### Testing that an element does not exist
+#### 要素が存在しないことのテスト
 
 To test that an element does not exist on the page, it is not possible to just call
 `#not_to have_search_field`. SitePrism supplies the `#has_no_<element>?` method
@@ -451,7 +451,7 @@ Then /^the search field exists$/ do
 end
 ```
 
-#### Waiting for an element to exist on a page
+#### 要素が存在するまで待つ
 
 Another method added by calling `element` is the `wait_for_<element_name>` method.
 Calling the method will cause the test to wait for the Capybara's
@@ -476,7 +476,7 @@ end
 @home.wait_for_search_field(10) #will wait for 10 seconds for the search field to appear
 ```
 
-#### Waiting for an element to become visible
+#### 要素が見えるまで待つ
 
 Another method added by calling `element` is the
 `wait_until_<element_name>_visible` method. Calling this method will
@@ -491,8 +491,7 @@ example:
 @home.wait_until_search_field_visible(10)
 ```
 
-#### Waiting for an element to become invisible
-
+#### 要素が見えるまで待つ
 Another method added by calling `element` is the
 `wait_until_<element_name>_invisible` method. Calling this method will
 cause the test to wait for Capybara's default wait time for the element
@@ -521,7 +520,7 @@ class Home < SitePrism::Page
 end
 ```
 
-#### Summary of what the element method provides:
+#### 要素に対するメソッドの概要:
 
 Given:
 
@@ -546,7 +545,7 @@ end
 
 ```
 
-### Element Collections
+### 要素の集合
 
 Sometimes you don't want to deal with an individual element but rather
 with a collection of similar elements, for example, a list of names. To
@@ -563,7 +562,7 @@ Just like the `element` method, the `elements` method takes 2 arguments:
 the first being the name of the elements as a symbol, the second is the
 css selector that would return the array of capybara elements.
 
-#### Accessing the elements
+#### 要素へのアクセス
 
 Just like the `element` method, the `elements` method adds a few methods
 to the Page class. The first one is of the name of the element
@@ -576,7 +575,7 @@ class Friends < SitePrism::Page
 end
 ```
 
-You can access the element collection like this:
+次のようにアクセス可能:
 
 ```ruby
 @friends_page = Friends.new
@@ -595,8 +594,8 @@ expect(@friends_page.names.size).to eq 3
 expect(@friends_page).to have(3).names
 ```
 
-#### Testing for the existence of the element collection
-
+#### 要素集合のテスト
+#### 
 Just like the `element` method, the `elements` method adds a method to
 the page that will allow you to check for the existence of the
 collection, called `has_<element collection name>?`. As long as there is
@@ -609,7 +608,7 @@ class Friends < SitePrism::Page
 end
 ```
 
-... the following method is available:
+... 次のメソッドも利用可能:
 
 ```ruby
 @friends_page.has_names? #=> returns true if at least one element is found using the relevant selector
@@ -623,8 +622,7 @@ Then /^there should be some names listed on the page$/ do
 end
 ```
 
-#### Waiting for the element collection
-
+#### 要素集合を待つ
 Just like for an individual element, the tests can be told to wait for
 the existence of the element collection. The `elements` method adds a
 `wait_for_<element collection name>` method that will wait for
@@ -651,8 +649,7 @@ to wait for:
 @friends_page.wait_for_names(10)
 ```
 
-#### Waiting for the elements to be visible or invisible
-
+#### 要素がvisible or invisibleになるのを待つ
 Like the individual elements, calling the `elements` method will create
 two methods: `wait_until_<elements_name>_visible` and
 `wait_until_<elements_name>_invisible`. Calling these methods will cause
@@ -694,14 +691,12 @@ end
 
 ```
 
-## Sections
-
+## セクション
 SitePrism allows you to model sections of a page that appear on multiple
 pages or that appear a number of times on a page separately from Pages.
 SitePrism provides the Section class for this task.
 
-### Individual Sections
-
+### 単一のセクション
 In the same way that SitePrism provides `element` and `elements`, it
 provides `section` and `sections`. The first returns an instance of a
 page section, the second returns an array of section instances, one for
@@ -709,8 +704,7 @@ each capybara element found by the supplied css selector. What follows
 is an explanation of `section`.
 
 
-#### Defining a Section
-
+#### セクションの定義
 A section is similar to a page in that it inherits from a SitePrism
 class:
 
@@ -721,8 +715,7 @@ end
 
 At the moment, this section does nothing.
 
-#### Adding a section to a page
-
+#### Pageへのセクションの追加
 Pages include sections that's how SitePrism works. Here's a page that
 includes the above `MenuSection` section:
 
@@ -743,7 +736,7 @@ on this page (note that the css selector can be different for different
 pages as the whole point of sections is that they can appear in
 different places on different pages).
 
-#### Accessing a page's section
+#### ページ中のセクションへのアクセス
 
 The `section` method (like the `element` method) adds a few methods to
 the page or section class it was called against. The first method that
@@ -799,7 +792,7 @@ You can see that the `MenuSection` is used in both the `Home` and
 capybara element that is found by the css selector becomes the root node
 for the relevant page's instance of the `MenuSection` section.
 
-#### Adding elements to a section
+#### セクションへの要素追加
 
 This works just the same as adding elements to a page:
 
@@ -848,7 +841,7 @@ Then /^the home page menu contains a link to the various search functions$/ do
 end
 ```
 
-##### Accessing section elements using a block
+##### ブロックを利用したセクション要素へのアクセス
 
 Sections have a `within` method that allows scoped access to the section's elements inside a block.  This is similar to Capybara's `within` method and allows for shorter test code particularly with nested sections.
 Some of this test code can be made a little prettier by simply passing a block in.
@@ -864,7 +857,7 @@ Then /^the home page menu contains a link to the various search functions$/ do
 end
 ```
 
-#### Getting a section's parent
+#### セクションの親を取得
 
 It is possible to ask a section for its parent (page, or section if this
 section is a subsection). For example, given the following setup:
@@ -893,8 +886,7 @@ end
 @my_page.my_section.my_subsection.parent #=> returns @my_section
 ```
 
-#### Getting a section's parent page
-
+#### セクションの親ページを取得
 It is possible to ask a section for the page that it belongs to. For example,
 given the following setup:
 
@@ -918,7 +910,7 @@ end
 @home.menu.parent_page #=> returns @home
 ```
 
-#### Testing for the existence of a section
+#### セクションの存在をテスト
 
 Just like elements, it is possible to test for the existence of a
 section. The `section` method adds a method called `has_<section name>?`
@@ -952,7 +944,7 @@ expect(@home).to have_menu
 expect(@home).not_to have_menu
 ```
 
-#### Waiting for a section to exist
+#### セクションが出現するのを待つ
 
 Another method added to the page or section by the `section` method is
 `wait_for_<section name>`. Similar to what `element` does, this method
@@ -979,8 +971,7 @@ end
 @home.wait_for_menu(10) # waits for 10 seconds instead of capybara's default timeout
 ```
 
-#### Waiting for a section to become visible or invisible
-
+#### セクションがvisible or invisibleになるのを待つ
 Like an element, it is possible to wait for a section to become visible
 or invisible. Calling the `section` method creates two methods on the
 relevant page or section:
@@ -1005,7 +996,7 @@ time to wait for visibility/invisibility of a section. Here's how:
 @home.wait_until_menu_invisible(3)
 ```
 
-#### Sections within sections
+#### セクション内のセクション
 
 You are not limited to adding sections only to pages; you can nest
 sections within sections within sections within sections!
