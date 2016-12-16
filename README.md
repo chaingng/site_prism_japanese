@@ -91,7 +91,7 @@ Now for the details...
 
 ## セットアップ
 ### インストール
-To install SitePrism:
+SitePrismのインストール:
 
 ```bash
 gem install site_prism
@@ -147,7 +147,7 @@ class Home < SitePrism::Page
 end
 ```
 
-The above has nothing useful defined, only the name.
+上の例は名前だけの定義で使える例ではない.
 
 ### URLの追加
 ページはたいていURLをもつ。ページナビゲーションを行うにはURLを設定する必要がある:
@@ -187,7 +187,7 @@ class Search < SitePrism::Page
 end
 ```
 
-See https://github.com/sporkmonger/addressable for more details on parameterized URLs.
+https://github.com/sporkmonger/addressable にパラメータURLの詳細が記載されている.
 
 ### Pageナビゲーション
 URLをセットすると ( `set_url`), `#load` によって直接ページ遷移が可能:
@@ -198,7 +198,7 @@ URLをセットすると ( `set_url`), `#load` によって直接ページ遷移
 ```
 
 #### URLパラメータによるPageナビゲーション
-The `#load` method takes parameters and will apply them to the URL. Using the examples above:
+`#load` メソッドはパラメータをもちURLに適用できる:
 
 ```ruby
 class UserProfile < SitePrism::Page
@@ -225,7 +225,7 @@ end
 This will tell whichever capybara driver you have configured to
 navigate to the URL set against that page's class.
 
-See https://github.com/sporkmonger/addressable for more details on parameterized URLs.
+https://github.com/sporkmonger/addressable にパラメータURLの詳細が記載されている.
 
 ### あるページが表示されることの確認
 
@@ -259,8 +259,7 @@ Sometimes you want to verify not just that the current URL matches the
 template, but that you're looking at a specific page matching that
 template.
 
-Given the previous example, if you wanted to ensure that the browser had loaded
-account number 22, you could assert the following:
+前の例にて、account number 22がブラウザでロードされることを保証するためには以下をassertする:
 
 ```ruby
 expect(@account_page).to be_displayed(id: 22)
@@ -441,9 +440,8 @@ end
 #### 要素が存在するまで待つ
 
  `element` の追加によって、 `wait_for_<element_name>` メソッドも追加される.
-このメソッドにより、the Capybara's default wait time だけ要素が現れるのを待つ. 
-wait timeはカスタム可能.
-Using the same example as above:
+このメソッドにより、Capybaraのデフォルトwait time だけ要素が現れるのを待つ. 
+wait timeはカスタム可能:
 
 ```ruby
 class Home < SitePrism::Page
