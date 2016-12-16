@@ -228,11 +228,8 @@ navigate to the URL set against that page's class.
 https://github.com/sporkmonger/addressable にパラメータURLの詳細が記載されている.
 
 ### あるページが表示されることの確認
-
-Automated tests often need to verify that a particular page is
-displayed. SitePrism can automatically parse your URL template
-and verify that whatever components your template specifies match the
-currently viewed page.  For example, with the following URL template:
+自動テストはしばしば特定のページが表示されていることを確認する.
+SitePrismは自動でURLをパースして、テンプレートが指定する要素が現在表示しているページと一致するか確認する:
 
 ```ruby
 class Account < SitePrism::Page
@@ -250,8 +247,7 @@ expect(@account_page.current_url).to end_with "/accounts/22?token=ca2786616a4285
 expect(@account_page).to be_displayed
 ```
 
-Calling `#displayed?` will return true if the browser's current URL
-matches the page's template and false if it doesn't.
+`#displayed?` を呼ぶことで現在のブラウザのURLがページテンプレートと一致するかどうか確認できる.
 
 #### テンプレートURLにおけるパラメータ値の特定
 
