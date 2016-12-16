@@ -12,7 +12,7 @@ Find the pretty documentation here: http://rdoc.info/gems/site_prism/frames
 
 Make sure to add your project/company to https://github.com/natritmeyer/site_prism/wiki/Who-is-using-SitePrism
 
-## Synopsis
+## 概要
 
 Here's an overview of how SitePrism is designed to be used:
 
@@ -89,18 +89,15 @@ end
 
 Now for the details...
 
-## Setup
-
-### Installation
-
+## セットアップ
+### インストール
 To install SitePrism:
 
 ```bash
 gem install site_prism
 ```
 
-### Using SitePrism with Cucumber
-
+### CucumberでのSitePrismの利用
 If you are using cucumber, here's what needs requiring:
 
 ```ruby
@@ -110,8 +107,7 @@ require 'selenium-webdriver'
 require 'site_prism'
 ```
 
-### Using SitePrism with RSpec
-
+### RSpecでのSitePrismの利用
 If you're using rspec instead, here's what needs requiring:
 
 ```ruby
@@ -121,7 +117,7 @@ require 'selenium-webdriver'
 require 'site_prism'
 ```
 
-## Introduction to the Page Object Model
+## Page Object Modelのイントロダクション
 
 The Page Object Model is a test automation pattern that aims to create
 an abstraction of your site's user interface that can be used in tests.
@@ -142,8 +138,7 @@ multiple pages, or many times on a page using the concept of sections.
 As you might be able to guess from the name, pages are fairly central to
 the Page Object Model. Here's how SitePrism models them:
 
-### Creating a Page Model
-
+### Page Modelの作成
 The simplest page is one that has nothing defined in it. Here's an
 example of how to begin modelling a home page:
 
@@ -154,8 +149,7 @@ end
 
 The above has nothing useful defined, only the name.
 
-### Adding a URL
-
+### URLの追加
 A page usually has a URL. If you want to be able to navigate to a page,
 you'll need to set its URL. Here's how:
 
@@ -177,8 +171,7 @@ Note that setting a URL is optional - you only need to set a url if you want to 
 directly to that page. It makes sense to set the URL for a page model of a home
 page or a login page, but probably not a search results page.
 
-#### Parameterized URLs
-
+#### URLパラメータの使用
 SitePrism uses the Addressable gem and therefore allows for parameterized URLs. Here is
 a simple example:
 
@@ -198,8 +191,7 @@ end
 
 See https://github.com/sporkmonger/addressable for more details on parameterized URLs.
 
-### Navigating to the Page
-
+### Pageナビゲーション
 Once the URL has been set (using `set_url`), you can navigate directly
 to the page using `#load`:
 
@@ -208,8 +200,7 @@ to the page using `#load`:
 @home_page.load
 ```
 
-#### Navigating to a page with a parameterized URL
-
+#### URLパラメータによるPageナビゲーション
 The `#load` method takes parameters and will apply them to the URL. Using the examples above:
 
 ```ruby
@@ -239,7 +230,7 @@ navigate to the URL set against that page's class.
 
 See https://github.com/sporkmonger/addressable for more details on parameterized URLs.
 
-### Verifying that a particular page is displayed
+### あるページが表示されることの確認
 
 Automated tests often need to verify that a particular page is
 displayed. SitePrism can automatically parse your URL template
@@ -265,7 +256,7 @@ expect(@account_page).to be_displayed
 Calling `#displayed?` will return true if the browser's current URL
 matches the page's template and false if it doesn't.
 
-#### Specifying parameter values for templated URLs
+#### テンプレートURLにおけるパラメータ値の特定
 
 Sometimes you want to verify not just that the current URL matches the
 template, but that you're looking at a specific page matching that
@@ -286,7 +277,7 @@ say:
 expect(@account_page).to be_displayed(id: /2\z/)
 ```
 
-#### Accessing specific matches from a templated URL in your tests
+#### テストにおけるテンプレートURL中のマッチング
 
 If passing options to `displayed?` isn't powerful enough to meet your
 needs, you can directly access and assert on the `url_matches` found
@@ -312,8 +303,7 @@ class Account < SitePrism::Page
 end
 ```
 
-#### Testing for Page display
-
+#### Page表示のテスト
 SitePrism's `#displayed?` predicate method allows for semantic code in
 your test:
 
@@ -324,8 +314,7 @@ Then /^the account page is displayed$/ do
 end
 ```
 
-### Getting the Current Page's URL
-
+### 現在のURLの取得
 SitePrism allows you to get the current page's URL. Here's how it's
 done:
 
@@ -339,8 +328,7 @@ end
 expect(@account.current_url).to include "example.com/account/"
 ```
 
-### Page Title
-
+### タイトルの取得
 Getting a page's title isn't hard:
 
 ```ruby
@@ -369,16 +357,14 @@ end
 expect(@account).to be_secure
 ```
 
-## Elements
-
+## 要素
 Pages are made up of elements (text fields, buttons, combo boxes, etc),
 either individual elements or groups of them. Examples of individual
 elements would be a search field or a company logo image; examples of
 element collections would be items in any sort of list, eg: menu items,
 images in a carousel, etc.
 
-### Individual Elements
-
+### 単一の要素
 To interact with individual elements, they need to be defined as part of
 the relevant page. SitePrism makes this easy:
 
@@ -392,8 +378,7 @@ Here we're adding a search field to the Home page. The `element` method
 takes 2 arguments: the name of the element as a symbol, and a css selector
 as a string.
 
-#### Accessing the individual element
-
+#### 単一要素へのアクセス
 The `element` method will add a number of methods to instances of the
 particular Page class. The first method to be added is the name of the
 element. So using the following example:
