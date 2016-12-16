@@ -14,7 +14,7 @@ Make sure to add your project/company to https://github.com/natritmeyer/site_pri
 
 ## 概要
 
-SitePrismをどのように使うかの概要:
+SitePrismの使用方法の概要:
 
 ```ruby
 # define our site's pages
@@ -98,7 +98,7 @@ gem install site_prism
 ```
 
 ### CucumberでのSitePrismの利用
-If you are using cucumber, here's what needs requiring:
+cucumberを使っている場合は, 以下が必要:
 
 ```ruby
 require 'capybara'
@@ -108,7 +108,7 @@ require 'site_prism'
 ```
 
 ### RSpecでのSitePrismの利用
-If you're using rspec instead, here's what needs requiring:
+rspecを使う場合は以下が必要:
 
 ```ruby
 require 'capybara'
@@ -192,8 +192,7 @@ end
 See https://github.com/sporkmonger/addressable for more details on parameterized URLs.
 
 ### Pageナビゲーション
-Once the URL has been set (using `set_url`), you can navigate directly
-to the page using `#load`:
+URLをセットすると ( `set_url`), `#load` によって直接ページ遷移が可能:
 
 ```ruby
 @home_page = Home.new
