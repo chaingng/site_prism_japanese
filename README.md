@@ -340,9 +340,8 @@ end
 ### HTTP vs. HTTPS
 
 You can easily tell if the page is secure or not by checking to see if
-the current URL begins with 'https' or not. SitePrism provides the
-`secure?` method that will return true if the current url begins with
-'https' and false if it doesn't. For example:
+the current URL begins with 'https' or not. 
+SitePrism `secure?` メソッドにより現在のURLが'https'で始まればtrue、そうでなければfalseを返す:
 
 ```ruby
 class Account < SitePrism::Page
@@ -355,10 +354,9 @@ expect(@account).to be_secure
 ```
 
 ## 要素
-Pages are made up of elements (text fields, buttons, combo boxes, etc),
-either individual elements or groups of them. Examples of individual
-elements would be a search field or a company logo image; examples of
-element collections would be items in any sort of list, eg: menu items,
+Pageは単一の要素や要素の集合、様々な要素(text fields, buttons, combo boxes, etc)から成る.
+単一の要素は例えばsearch field or a company logo image.
+要素集合は例えばitems in any sort of list, eg: menu items,
 images in a carousel, etc.
 
 ### 単一の要素
@@ -376,9 +374,8 @@ takes 2 arguments: the name of the element as a symbol, and a css selector
 as a string.
 
 #### 単一要素へのアクセス
-The `element` method will add a number of methods to instances of the
-particular Page class. The first method to be added is the name of the
-element. So using the following example:
+`element` メソッドはPageクラスのインスタンスに多くのメソッドを追加する.
+最初のメソッドはelement名のメソッドになる:
 
 ```ruby
 class Home < SitePrism::Page
@@ -401,8 +398,7 @@ end
 
 #### 要素が存在することのテスト
 
-`element` メソッドの追加により、Pageクラスに`has_<element name>?` メソッドも追加される
-Using the same example as above:
+`element` メソッドの追加により、Pageクラスに`has_<element name>?` メソッドも追加される:
 
 ```ruby
 class Home < SitePrism::Page
@@ -412,7 +408,7 @@ class Home < SitePrism::Page
 end
 ```
 
-... you can test for the existence of the element on the page like this:
+... 要素の存在を次のようにテスト可能:
 
 ```ruby
 @home = Home.new
@@ -420,7 +416,7 @@ end
 @home.has_search_field? #=> returns true if it exists, false if it doesn't
 ```
 
-...which makes for nice test code:
+...こちらはよいテストコード:
 
 ```ruby
 Then /^the search field exists$/ do
@@ -430,9 +426,8 @@ end
 
 #### 要素が存在しないことのテスト
 
-To test that an element does not exist on the page, it is not possible to just call
-`#not_to have_search_field`. SitePrism supplies the `#has_no_<element>?` method
-that should be used to test for non-existence. Using the above example:
+ページに要素が存在しないことをテストするために、単に`#not_to have_search_field`を呼ぶことはできない. 
+SitePrism は`#has_no_<element>?` メソッドにより要素が存在しないことをテストする:
 
 ```ruby
 @home = Home.new
@@ -440,7 +435,7 @@ that should be used to test for non-existence. Using the above example:
 @home.has_no_search_field? #=> returns true if it doesn't exist, false if it does
 ```
 
-...which makes for nice test code:
+...こちらはよいテストコード:
 
 ```ruby
 Then /^the search field exists$/ do
@@ -463,7 +458,7 @@ class Home < SitePrism::Page
 end
 ```
 
-... you can wait for the search field to exist like this:
+... search fieldが現れるのを次のようにテストできる:
 
 ```ruby
 @home = Home.new
@@ -668,7 +663,7 @@ the default Capybara wait time:
 @friends_page.wait_until_names_invisible(7)
 ```
 
-### Checking that all mapped elements are present on the page
+### すべてのマッピングした要素がページ中に存在するかチェックする
 
 Throughout my time in test automation I keep getting asked to provide the
 ability to check that all elements that should be on the page are on the
@@ -994,9 +989,7 @@ time to wait for visibility/invisibility of a section. Here's how:
 ```
 
 #### セクション内のセクション
-
-You are not limited to adding sections only to pages; you can nest
-sections within sections within sections within sections!
+セクションはページだけでなく、セクションへのセクションへのセクションへのセクションへのネストも可能!:
 
 ```ruby
 
@@ -1050,9 +1043,8 @@ end
 
 #### 匿名セクション集合
 
-If you want to use a section more as a namespace for elements and are not
-planning on re-using it, you may find it more convenient to define
-an anonymous section using a block:
+セクションを要素の名前空間以上のものとして使いたい時、
+そして再利用しないときはブロックを使って匿名セクションを定義するのが便利:
 
 ```ruby
 class Home < SitePrism::Page
@@ -1062,9 +1054,7 @@ class Home < SitePrism::Page
   end
 end
 ```
-
-This code will create an anonymous section that you can use in the same way
-as an ordinary section:
+このコードは匿名セクションを作成し、普通のセクションのように使うことができる:
 
 ```ruby
 @home = Home.new
@@ -1230,8 +1220,8 @@ Load validations can be used in three constructs:
 
 #### Page#load
 
-When a block is passed to the `Page#load` method, the url will be loaded normally and then the block will be
-executed within the context of `when_loaded`.  See `when_loaded` documentation below for further details.
+`Page#load` メソッドにて, ページロード後、 `when_loaded` のコンテキストでブロックが実行される.  
+See `when_loaded` documentation below for further details.
 
 Example:
 
@@ -1286,12 +1276,9 @@ class SomePage < SitePrism::Page
 end
 ```
 
-The block may instead return a two-element array which includes the boolean result as the first element and an
-error message as the second element. It is highly recommended to supply an error message, as they are
-extremely useful in debugging validation errors.
+ブロックは２つの要素を持つ配列とすることもできる。１つ目はboolean値を返す要素、２つ目はエラーメッセージとして定義する。バリデーションエラーのデバッグのためにエラーメッセージを定義することを強く推奨する。
 
-The error message will be ignored unless the boolean value is falsey.
-
+boolean値がtrueであればエラーメッセージは無視される。
 ```ruby
 class SomePage < SitePrism::Page
   element :foo_element, '.foo'
@@ -1332,8 +1319,7 @@ class FooPage < BasePage
 end
 ```
 
-In the above example, when `loaded?` is called on an instance of `FooPage`, the validations will be performed in the
-following order:
+上の例では `loaded?`は `FooPage`として呼ばれ、バリデーションは次の順序で実行される:
 
 1. The `SitePrism::Page` default load validation will check `displayed?`
 2. The `BasePage` load validation will wait for the loading message to disappear.
