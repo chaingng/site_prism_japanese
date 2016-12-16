@@ -119,12 +119,11 @@ require 'site_prism'
 
 ## Page Object Modelのイントロダクション
 
-Page Object Modelはテストに使うWebサイトのユーザインタフェースを抽象化することを目的とした
-テスト自動化パターンである.
+Page Object Modelはテストに使うWebサイトのユーザインタフェースを抽象化することを目的としたテスト自動化パターンである.
 最も一般的な方法はページをクラスとしてモデル化し、テストでそのインスタンスを使う方法である.
 
 クラスがページを表してページの要素がメソッドにより表されるとすると、
-メソッドを呼ばれることでその要素に対するアクション(clicked, set text value)、もしくは問い合わせされた状態(is it enabled? visible?)が返される.
+メソッドが呼ばれることでその要素に対するアクション(clicked, set text value)、もしくは問い合わせされた状態(is it enabled? visible?)が返される.
 
 SitePrismはこのコンセプトに基づいていて、さらに単一ページで複数回現れる、
 または複数ページで繰り返し現れるセクションのモデル化も可能になる.
@@ -166,7 +165,7 @@ URLの設定はオプションである - ページへの直接の遷移が必�
 ホームページやログインページにURLをセットするが、検索結果にはおそらくいらないということが理解できる.
 
 #### URLパラメータの使用
-SitePrism はアドレス指定可能なgemを使っているのでパラメータURLも扱うことができる:
+SitePrism はAddressable gemを使っているのでパラメータURLも扱うことができる:
 
 ```ruby
 class UserProfile < SitePrism::Page
@@ -245,19 +244,15 @@ expect(@account_page).to be_displayed
 
 #### テンプレートURLにおけるパラメータ値の特定
 
-Sometimes you want to verify not just that the current URL matches the
-template, but that you're looking at a specific page matching that
-template.
-
+時々、現在のURLがテンプレートにマッチしていている以上のことを確かめたいときがある.
 前の例にて、account number 22がブラウザでロードされることを保証するためには以下をassertする:
 
 ```ruby
 expect(@account_page).to be_displayed(id: 22)
 ```
 
-You can even use regular expressions.  If, as a contrived example, you wanted to
-ensure that the browser was displaying an account with an id ending with 2, you could
-say:
+正規表現を使うことも可能である.
+この例ではaccount idが2で終わることを確かめている:
 
 ```ruby
 expect(@account_page).to be_displayed(id: /2\z/)
@@ -265,9 +260,8 @@ expect(@account_page).to be_displayed(id: /2\z/)
 
 #### テストにおけるテンプレートURL中のマッチング
 
-If passing options to `displayed?` isn't powerful enough to meet your
-needs, you can directly access and assert on the `url_matches` found
-when comparing your page's URL template to the current_url:
+`displayed?` オプションが十分に確かめたいことを満たしていないとき、
+`url_matches`によってページのURLテンプレートと現在のURLを比較することができる:
 
 ```ruby
 @account_page = Account.new
