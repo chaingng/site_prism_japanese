@@ -1051,7 +1051,7 @@ When /^I enter my name into the home page's registration form$/ do
 end
 ```
 
-#### Anonymous Sections
+#### 匿名セクション集合
 
 If you want to use a section more as a namespace for elements and are not
 planning on re-using it, you may find it more convenient to define
@@ -1074,7 +1074,7 @@ as an ordinary section:
 expect(@home.menu).to have_title
 ```
 
-### Section Collections
+### セクション集合
 
 An individual section represents a discrete section of a page, but often
 sections are repeated on a page, an example is a search result listing -
@@ -1090,7 +1090,7 @@ returns an array containing as many instances of the section class as
 there are capybara elements found by the supplied css selector. This is
 better explained in code :)
 
-#### Adding a Section collection to a page (or other section)
+#### セクション集合をページ(or他のセクション)に追加
 
 Given the following setup:
 
@@ -1136,7 +1136,7 @@ element. So if the css selector finds 3 `li` elements, calling
 `SearchResultSection`, each with one of the `li` elements as it's root
 element.
 
-#### Anonymous Section Collections
+#### 匿名セクション集合
 
 You can define collections of anonymous sections the same way you would
 define a single anonymous section:
@@ -1150,7 +1150,7 @@ class SearchResults < SitePrism::Page
 end
 ```
 
-#### Testing for existence of Sections
+#### セクションが存在するかテストする
 
 Using the example above, it is possible to test for the existence of the
 sections. As long as there is at least one section in the array, the
@@ -1185,7 +1185,7 @@ Then /^there are search results on the page$/ do
 end
 ```
 
-#### Waiting for sections to appear
+#### セクションが出現するのを待つ
 
 The final method added by `sections` to the page/section we're adding
 our sections to is `wait_for_<sections name>`. It will wait for
@@ -1224,8 +1224,7 @@ to be displayed and the loading message removed before trying to interact with w
 Other use cases include Sections which are displayed conditionally and may take time to become ready to
 interact with, such as animated lightboxes.
 
-### Using Load Validations
-
+### Load Validationsの使用
 Load validations can be used in three constructs:
 
 * Passing a block to `Page#load`
@@ -1280,8 +1279,7 @@ it 'loads the page' do
 end
 ```
 
-### Defining Load Validations
-
+### Load Validationsの定義
 A load validation is a block which returns a boolean value when evaluated against an instance of the Loadable.
 
 ```ruby
@@ -1349,8 +1347,7 @@ NOTE: `SitePrism::Page` includes a default load validation on `page.displayed?` 
 to all pages.  It is therefore not necessary to define a load validation for this condition on
 inheriting page objects.
 
-## Using Capybara Query Options
-
+## Capybara Query Optionsを使用
 When querying an element, section or a collection of elements or sections, you may
 supply Capybara query options as arguments to the element and section methods in order
 to refine the results of the query and enable Capybara to wait for all of the conditions
@@ -1413,8 +1410,7 @@ class SearchResults < SitePrism::Page
 end
 ```
 
-### Methods Supporting Capybara Options
-
+### Capybara Optionsをサポートするメソッド
 The following element methods allow Capybara options to be passed as arguments to the method:
 
 ```ruby
@@ -1458,8 +1454,7 @@ is embedded into. Like a section, it is possible to test for the
 existence of the iframe, wait for it to exist as well as interact with
 the page it contains.
 
-### Creating an iframe
-
+### iframeの作成
 An iframe is declared in the same way as a Page:
 
 ```ruby
@@ -1482,8 +1477,7 @@ end
 The third argument to the `iframe` method must
 contain a selector that will locate the iframe node.
 
-### Testing for an iframe's existence
-
+### iframeが存在するかテストする
 Like an element or section, it is possible to test for an iframe's
 existence using the auto-generated `has_<iframe_name>?` method. Using
 the above example, here's how it's done:
@@ -1495,8 +1489,7 @@ the above example, here's how it's done:
 expect(@page).to have_my_iframe
 ```
 
-### Waiting for an iframe
-
+### iframeを待つ
 Like an element or section, it is possible to wait for an iframe to
 exist by using the `wait_for_<iframe_name>` method. For example:
 
@@ -1506,7 +1499,7 @@ exist by using the `wait_for_<iframe_name>` method. For example:
 @page.wait_for_my_iframe
 ```
 
-### Interacting with an iframe's contents:
+### iframeコンテンツとの相互作用:
 
 Since an iframe contains a fully fledged SitePrism::Page, you are able
 to interact with the elements and sections defined within it. Due to
@@ -1541,11 +1534,11 @@ When /^I log in$/ do
 end
 ```
 
-## SitePrism Configuration
+## SitePrismの設定
 
 SitePrism can be configured to change its behaviour.
 
-### Using Capybara Implicit Waits
+### CapybaraのImplicit Waitsを使う
 
 By default, SitePrism element and section methods do not utilize
 Capybara's implicit wait methodology and will return immediately if
@@ -1577,15 +1570,13 @@ with this:
 @search_page.search_results
 ```
 
-## Using SitePrism with VCR
-
+## VCRでSitePrismを使う
 There's a SitePrism plugin called `site_prism.vcr` that lets you use
 SitePrism with the VCR gem. Check it out here:
 
 * https://github.com/dnesteryuk/site_prism.vcr
 
-# Epilogue
-
+# エピローグ
 So, we've seen how to use SitePrism to put together page objects made up
 of pages, elements, sections and iframes. But how to organise this stuff? There
 are a few ways of saving yourself having to create instances of pages
@@ -1604,8 +1595,8 @@ The annoyance (and, later, maintenance nightmare) is having to create
 `@home` and `@results_page`. It would be better to not have to create
 instances of pages all over your tests.
 
-The way I've dealt with this problem is to create a class containing
-methods that return instances of the pages. Eg:
+ページインスタンスを返すメソッドを含むクラスを作ることで、この問題に対処する
+Eg:
 
 ```ruby
 # our pages
