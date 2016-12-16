@@ -450,10 +450,10 @@ end
 
 #### 要素が存在するまで待つ
 
-Another method added by calling `element` is the `wait_for_<element_name>` method.
-Calling the method will cause the test to wait for the Capybara's
-default wait time for the element to exist. It is also possible to use a
-custom amount of time to wait. Using the same example as above:
+ `element` の追加によって、 `wait_for_<element_name>` メソッドも追加される.
+このメソッドにより、the Capybara's default wait time だけ要素が現れるのを待つ. 
+wait timeはカスタム可能.
+Using the same example as above:
 
 ```ruby
 class Home < SitePrism::Page
