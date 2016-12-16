@@ -1,3 +1,6 @@
+# SitePrismの日本語訳
+https://github.com/natritmeyer/site_prism
+
 # SitePrism
 _A Page Object Model DSL for Capybara_
 
