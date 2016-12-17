@@ -4,7 +4,7 @@ https://github.com/natritmeyer/site_prism
 # SitePrism
 _A Page Object Model DSL for Capybara_
 
-SitePrism gives you a simple, clean and semantic DSL for describing your site using the Page Object Model pattern, for use with Capybara in automated acceptance testing.
+SitePrismは、あなたのWebサイトをPage Object Modelパターンで記述し、自動テストにCapybaraを使った、シンプル、クリーンでセマンティックなDSLを提供します。 
 
 整形されたドキュメントはこちら: http://rdoc.info/gems/site_prism/frames
 
@@ -475,7 +475,7 @@ end
 
 #### 要素に対するメソッドの概要:
 
-Given:
+こちらが与えられたとき:
 
 ```ruby
 class Home < SitePrism::Page
@@ -483,7 +483,7 @@ class Home < SitePrism::Page
 end
 ```
 
-...then the following methods are available:
+...次のメソッドが利用可能になる:
 
 ```ruby
 @home.search_field
@@ -508,16 +508,13 @@ class Friends < SitePrism::Page
 end
 ```
 
-Just like the `element` method, the `elements` method takes 2 arguments:
-the first being the name of the elements as a symbol, the second is the
-css selector that would return the array of capybara elements.
+`element` メソッドと同様に、`elements` メソッドは２つの引数を持つ:
+１つ目は要素名としてのシンボル、２つ目はCapybara要素配列を返すCSSセレクタである.
 
 #### 要素へのアクセス
 
-Just like the `element` method, the `elements` method adds a few methods
-to the Page class. The first one is of the name of the element
-collection which returns an array of capybara elements that match the
-css selector. Using the example above:
+`element`と同様に, `elements`メソッドはPageクラスにいくつかメソッドを追加する.
+1つはCSSセレクタにマッチするCapybara要素配列を返す配列である:
 
 ```ruby
 class Friends < SitePrism::Page
@@ -655,19 +652,18 @@ is an explanation of `section`.
 
 
 #### セクションの定義
-A section is similar to a page in that it inherits from a SitePrism
-class:
+sectionはページと似ており、SitePrismクラスを継承する:
 
 ```ruby
 class MenuSection < SitePrism::Section
 end
 ```
 
-At the moment, this section does nothing.
+ここまででは,セクションは何もしない.
 
 #### Pageへのセクションの追加
-Pages include sections that's how SitePrism works. Here's a page that
-includes the above `MenuSection` section:
+SitePrismが動いているPagesにセクションをインクルードする. 
+上の`MenuSection`をPageにインクルードした例:
 
 ```ruby
 class Home < SitePrism::Page
