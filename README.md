@@ -794,8 +794,7 @@ end
 
 #### セクションの親を取得
 
-It is possible to ask a section for its parent (page, or section if this
-section is a subsection). For example, given the following setup:
+Sectionに対して、その親(ページ、もしくはサブセクションとなっているセクション)を取得することができる.:
 
 ```ruby
 class MySubSection < SitePrism::Section
@@ -811,7 +810,7 @@ class MyPage < SitePrism::Page
 end
 ```
 
-...then calling `#parent` will return the following:
+...`#parent` を呼ぶことで次が返ってくる:
 
 ```ruby
 @my_page = MyPage.new
@@ -822,8 +821,7 @@ end
 ```
 
 #### セクションの親ページを取得
-It is possible to ask a section for the page that it belongs to. For example,
-given the following setup:
+Sectionが属しているPageを取得することが可能:
 
 ```ruby
 class MenuSection < SitePrism::Section
@@ -837,7 +835,7 @@ class Home < SitePrism::Page
 end
 ```
 
-...you can get the section's parent page:
+...Sectionの親ページを取得できる:
 
 ```ruby
 @home = Home.new
@@ -899,7 +897,7 @@ class Home < SitePrism::Page
 end
 ```
 
-... we can wait for the menu section to appear on the page like this:
+... このようにページ中にmenu sectionが現れるのを待つことができる:
 
 ```ruby
 @home.wait_for_menu
@@ -907,12 +905,10 @@ end
 ```
 
 #### セクションがvisible or invisibleになるのを待つ
-Like an element, it is possible to wait for a section to become visible
-or invisible. Calling the `section` method creates two methods on the
-relevant page or section:
-`wait_until_<section_name>_visible` and
-`wait_until_<section_name>_invisible`. Using the above example, here's
-how they're used:
+要素と同様に、Sectionがvisibleまたはinvisibleになるのを待つことができる. 
+`section`メソッドは関連するpageもしくはsectionに２つのメソッドを追加する:
+`wait_until_<section_name>_visible` と`wait_until_<section_name>_invisible`. 
+上の例では、次のように使うことができる:
 
 ```ruby
 @home = Home.new
