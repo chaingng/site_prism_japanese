@@ -586,11 +586,9 @@ end
 ```
 
 #### 要素がvisible or invisibleになるのを待つ
-Like the individual elements, calling the `elements` method will create
-two methods: `wait_until_<elements_name>_visible` and
-`wait_until_<elements_name>_invisible`. Calling these methods will cause
-your test to wait for the elements to become visible or invisible. Using
-the above example:
+単一要素と同様に、`elements`メソッドも２つのメソッドを生成する: 
+`wait_until_<elements_name>_visible`と`wait_until_<elements_name>_invisible`. 
+これらのメソッドが呼ばれることで、テストにおいて要素集合がvisible or invisibleになるのを待つことができる:
 
 ```ruby
 @friends_page.wait_until_names_visible
@@ -628,8 +626,7 @@ end
 ```
 
 ## セクション
-SitePrism allows you to model sections of a page that appear on multiple
-pages or that appear a number of times on a page separately from Pages.
+SitePrismは各ページに何度も表示されるページのセクションをモデル化することができる.
 SitePrismはこれを実現するためにSectionを提供する.
 
 ### 単一のセクション
