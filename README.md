@@ -630,7 +630,7 @@ end
 ## セクション
 SitePrism allows you to model sections of a page that appear on multiple
 pages or that appear a number of times on a page separately from Pages.
-SitePrism provides the Section class for this task.
+SitePrismはこれを実現するためにSectionを提供する.
 
 ### 単一のセクション
 In the same way that SitePrism provides `element` and `elements`, it
@@ -729,7 +729,7 @@ for the relevant page's instance of the `MenuSection` section.
 
 #### セクションへの要素追加
 
-This works just the same as adding elements to a page:
+単純に、ページへ要素を追加するのと同じ方法で追加できる:
 
 ```ruby
 class MenuSection < SitePrism::Section
@@ -743,7 +743,7 @@ Note that the css selectors used to find elements are searched for
 within the scope of the root element of that section. The search for the
 element won't be page-wide but it will only look in the section.
 
-When the section is added to a page...
+ページにセクションが追加されると...
 
 ```ruby
 class Home < SitePrism::Page
@@ -751,7 +751,7 @@ class Home < SitePrism::Page
 end
 ```
 
-...then the section's elements can be accessed like this:
+...セクションの要素は次のようにアクセスできるようになる:
 
 ```ruby
 @home = Home.new
@@ -765,7 +765,7 @@ end
 
 ```
 
-...which leads to some pretty test code:
+...いくつかのよいテストコード:
 
 ```ruby
 Then /^the home page menu contains a link to the various search functions$/ do
@@ -872,7 +872,7 @@ end
 @home.has_menu? #=> returns true or false
 ```
 
-Again, this allows pretty test code:
+同様に、こちらはよいテストコード:
 
 ```ruby
 expect(@home).to have_menu
