@@ -272,9 +272,8 @@ expect(@account_page.url_matches['query']['token']).to eq "ca2786616a4285bc"
 ```
 
 #### basic regexp matchersの使用
-If SitePrism's built-in URL matching is not sufficient for your needs
- you can override and use SitePrism's previous support for regular expression-based
-URL matchers by it by calling `set_url_matcher`:
+SitePrismのビルドインURLマッチングでは十分でない場合、`set_url_matcher`を呼ぶことで
+以前サポートしていた正規表現ベースのURLマッチャーをオーバーライドして使用することが可能:
 
 ```ruby
 class Account < SitePrism::Page
@@ -334,9 +333,9 @@ expect(@account).to be_secure
 
 ## 要素
 Pageは単一の要素や要素の集合、様々な要素(text fields, buttons, combo boxes, etc)から成る.
-単一の要素は例えばsearch field or a company logo image.
+単一の要素は例えばsearch field or a company logo imageがある.
 要素集合は例えばitems in any sort of list, eg: menu items,
-images in a carousel, etc.
+images in a carouselなどがある.
 
 ### 単一の要素
 単一の要素を紐づけるためには、ページの一部として定義する必要がある。
@@ -363,7 +362,7 @@ class Home < SitePrism::Page
 end
 ```
 
-... the following shows how to get hold of the search field:
+... 次のようにsearch fieldを取り扱うことができる:
 
 ```ruby
 @home = Home.new
@@ -447,12 +446,9 @@ end
 
 #### 要素が見えるまで待つ
 
-Another method added by calling `element` is the
-`wait_until_<element_name>_visible` method. Calling this method will
-cause the test to wait for Capybara's default wait time for the element
-to become visible (*not* the same as existence!). You can customise the
-wait time be supplying a number of seconds to wait. Using the above
-example:
+`element`を呼ぶことにより、`wait_until_<element_name>_visible`メソッドも追加される.
+このメソッドを呼ぶことでCapybaraのデフォルトwait timeだけ要素がvisibleになる(existanceではない)のを待つことができる
+waitの秒数を定義することでカスタマイズすることも可能:
 
 ```ruby
 @home.wait_until_search_field_visible
@@ -530,8 +526,7 @@ end
 @friends_page.names #=> [<Capybara::Element>, <Capybara::Element>, <Capybara::Element>]
 ```
 
-With that you can do all the normal things that are possible with
-arrays:
+また配列に対してできる通常の操作も利用可能:
 
 
 ```ruby
@@ -543,11 +538,8 @@ expect(@friends_page).to have(3).names
 
 #### 要素集合のテスト
 #### 
-Just like the `element` method, the `elements` method adds a method to
-the page that will allow you to check for the existence of the
-collection, called `has_<element collection name>?`. As long as there is
-at least 1 element in the array, the method will return true, otherwise
-false. For example, with the following page:
+`element`メソッドと同様に,`elements`メソッドも `has_<element collection name>?`で
+呼ぶことのできる存在確認を行うメソッドを追加する.少なくとも配列中の１つでも要素が存在したらtrueを返し、そうでなければfalseを返す:
 
 ```ruby
 class Friends < SitePrism::Page
@@ -561,7 +553,7 @@ end
 @friends_page.has_names? #=> returns true if at least one element is found using the relevant selector
 ```
 
-...which allows for pretty test code:
+...テストすることも可能:
 
 ```ruby
 Then /^there should be some names listed on the page$/ do
@@ -570,11 +562,9 @@ end
 ```
 
 #### 要素集合を待つ
-Just like for an individual element, the tests can be told to wait for
-the existence of the element collection. The `elements` method adds a
-`wait_for_<element collection name>` method that will wait for
-Capybara's default wait time until at least 1 element is found that
-matches the selector. For example, with the following page:
+単一要素と同様に、要素集合も出現するまで待つためのメソッドがある. 
+`elements`メソッドは`wait_for_<element collection name>` も追加し、
+このメソッドを呼ぶことで,少なくとも１要素がセレクタにマッチするまでCapybraのデフォルトwait timeだけ待つ:
 
 ```ruby
 class Friends < SitePrism::Page
@@ -583,14 +573,13 @@ end
 
 ```
 
-... you can wait for the existence of a list of names like this:
+... このようにnamesが存在するまで待つことができる:
 
 ```ruby
 @friends_page.wait_for_names
 ```
 
-Again, you can customise the wait time by supplying a number of seconds
-to wait for:
+また、待ち時間もカスタマイズすることができる:
 
 ```ruby
 @friends_page.wait_for_names(10)
