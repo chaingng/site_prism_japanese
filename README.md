@@ -1267,12 +1267,11 @@ to all pages.  It is therefore not necessary to define a load validation for thi
 inheriting page objects.
 
 ## Capybara Query Optionsを使用
-When querying an element, section or a collection of elements or sections, you may
-supply Capybara query options as arguments to the element and section methods in order
-to refine the results of the query and enable Capybara to wait for all of the conditions
-necessary to properly fulfill your request.
+要素、セクション、または要素やセクションのコレクションにクエリを実行する際に、要素やセクションのメソッドの引数としてCapybaraのクエリオプションを与えることができます。
 
-Given the following sample page and elements:
+これにより、クエリの結果が洗練され、Capybaraが要求を適切に満たすために必要なすべての条件を待つことができます。
+
+以下のサンプルpageとelemntを考えると:
 
 ```ruby
 class SearchResultSection < SitePrism::Section
@@ -1286,8 +1285,7 @@ class SearchResults < SitePrism::Page
 end
 ```
 
-Asserting the attributes of an element or section returned by any method may fail if
-the page has not finished loading the element(s):
+いずれかのメソッドによって返された要素やセクションの属性をアサートすることは、ページが要素element(s)の読み込みを終了していない場合に失敗する可能性があります。
 
 ```ruby
 @results_page = SearchResults.new
@@ -1295,9 +1293,8 @@ the page has not finished loading the element(s):
 expect(@results_page.search_results.size).to == 25 # This may fail!
 ```
 
-The above query can be rewritten to utilize the Capybara :count option when querying for
-the collection, which in turn causes Capybara to expect some number of results to be returned.
-The method calls below will succeed, provided the elements appear on the page within the timeout:
+上記のクエリは、コレクションへのクエリを行う際にCapybara :countオプションを利用するように書き換えることができ、Capybaraはいくつかの数の結果が返されることを期待します。
+以下のメソッド呼び出しは、要素がタイムアウト内にページに表示されていれば成功します。
 
 ```ruby
 @results_page = SearchResults.new
@@ -1309,8 +1306,7 @@ The method calls below will succeed, provided the elements appear on the page wi
 @results_page.wait_for_search_results nil, :count => 25 # wait_for_<element_name> expects a timeout value to be passed as the first parameter or nil to use the default timeout value.
 ```
 
-Now we can write pretty, non-failing tests without hard coding these options
-into our page and section classes:
+これで、これらのオプションをハードコーディングすることなく、きれいで不完全ではないテストを書くことができるようになりました:
 
 ```ruby
 Then /^there are search results on the page$/ do
@@ -1318,8 +1314,8 @@ Then /^there are search results on the page$/ do
 end
 ```
 
-This is supported for all of the Capybara options including, but not limited to :count, :text,
-:wait, etc. This can also be used when defining page objects. Eg:
+これは、 :count、 :text を含むがこれに限定されない Capybara のすべてのオプションでサポートされています。 
+これはページオブジェクトを定義する際にも使用できます。例えば
 
 ```ruby
 class SearchResults < SitePrism::Page
@@ -1330,7 +1326,7 @@ end
 ```
 
 ### Capybara Optionsをサポートするメソッド
-The following element methods allow Capybara options to be passed as arguments to the method:
+以下の要素メソッドでは、Capybaraのオプションをメソッドの引数として渡すことができます。
 
 ```ruby
 @results_page.<element_or_section_name> :text => "Welcome!"
@@ -1343,8 +1339,8 @@ The following element methods allow Capybara options to be passed as arguments t
 
 ## Test views with Page objects
 
-It's possible to use the same page objects of integration tests for view tests, too,
-just pass the rendered HTML to the ```load``` method:
+レンダリングされた HTML を `load` メソッドに渡すだけで、統合テストの同じページオブジェクトをビューテストに使うことも可能です。
+
 
 ```ruby
 require 'spec_helper'
@@ -1367,14 +1363,11 @@ end
 
 ## IFrames
 
-SitePrism allows you to interact with iframes. An iframe is declared as
-a `SitePrism::Page` class, and then referenced by the page or section it
-is embedded into. Like a section, it is possible to test for the
-existence of the iframe, wait for it to exist as well as interact with
-the page it contains.
+SitePrismでは、iframeを使って対話することができます。
+iframeは`SitePrism::Page`クラスとして宣言され、埋め込まれたページやセクションによって参照されます。セクションのように、iframeの存在をテストしたり、iframeが存在するのを待ったり、iframeが含まれているページと対話したりすることができます。
 
 ### iframeの作成
-An iframe is declared in the same way as a Page:
+iframeはページと同じように宣言されます。
 
 ```ruby
 class MyIframe < SitePrism::Page
@@ -1382,10 +1375,9 @@ class MyIframe < SitePrism::Page
 end
 ```
 
-To expose the iframe, reference it from another page or class using the `iframe`
-method. The `iframe` method takes 3 arguments; the name by which you
-would like to reference the iframe, the page class that represents the
-iframe, and an ID or class by which you can locate the iframe. For example:
+iframeを公開するには、`iframe`メソッドを使って他のページやクラスから参照します。
+iframeを参照したい名前、iframeを表すページクラス、iframeの場所を特定できるIDまたはクラスです。例えば、以下のようになります。
+
 
 ```ruby
 class PageContainingIframe < SitePrism::Page
@@ -1393,13 +1385,12 @@ class PageContainingIframe < SitePrism::Page
 end
 ```
 
-The third argument to the `iframe` method must
-contain a selector that will locate the iframe node.
+iframe`メソッドの第3引数には、iframeノードを見つけるセレクタを含まなければなりません。
 
 ### iframeが存在するかテストする
-Like an element or section, it is possible to test for an iframe's
-existence using the auto-generated `has_<iframe_name>?` method. Using
-the above example, here's how it's done:
+
+要素やセクションと同様に、自動生成された `has_<iframe_name>?` メソッドを使ってiframeの存在をテストすることができます。
+上記の例を使用して、どのように行うかを説明します。
 
 ```ruby
 @page = PageContainingIframe.new
@@ -1409,8 +1400,7 @@ expect(@page).to have_my_iframe
 ```
 
 ### iframeを待つ
-Like an element or section, it is possible to wait for an iframe to
-exist by using the `wait_for_<iframe_name>` method. For example:
+要素やセクションと同様に、`wait_for_<iframe_name>`メソッドを使ってiframeが存在するのを待つことができます。例えば、以下のようになります。
 
 ```ruby
 @page = PageContainingIframe.new
@@ -1420,11 +1410,9 @@ exist by using the `wait_for_<iframe_name>` method. For example:
 
 ### iframeコンテンツとの相互作用:
 
-Since an iframe contains a fully fledged SitePrism::Page, you are able
-to interact with the elements and sections defined within it. Due to
-capybara internals it is necessary to pass a block to the iframe instead
-of simply calling methods on it; the block argument is the
-SitePrism::Page that represents the iframe's contents. For example:
+iframeには完全に本格的なSitePrism::Pageが含まれているので、その中で定義されている要素やセクションと対話することができます。
+capybara内部のため、単にメソッドを呼び出すのではなく、ブロックをiframeに渡す必要があります。
+例えば、以下のようになります。
 
 ```ruby
 # SitePrism::Page representing the iframe
@@ -1455,15 +1443,12 @@ end
 
 ## SitePrismの設定
 
-SitePrism can be configured to change its behaviour.
+SitePrismは、その動作を変更するように設定することができます。
 
 ### CapybaraのImplicit Waitsを使う
 
-By default, SitePrism element and section methods do not utilize
-Capybara's implicit wait methodology and will return immediately if
-the element or section requested is not found on the page.  Add the
-following code to your spec_helper file to enable Capybara's implicit
-wait methodology to pass through:
+デフォルトでは、SitePrismの要素とセクションのメソッドはCapybaraの暗黙の待ち方を利用せず、要求された要素やセクションがページ上に見つからない場合はすぐに戻ります。 
+以下のコードを spec_helper ファイルに追加して、Capybara のimplicit waitを通すようにします:
 
 ```ruby
 SitePrism.configure do |config|
@@ -1490,16 +1475,15 @@ with this:
 ```
 
 ## VCRでSitePrismを使う
-There's a SitePrism plugin called `site_prism.vcr` that lets you use
-SitePrism with the VCR gem. Check it out here:
+SitePrismには `site_prism.vcr` というプラグインがあります。 こちらでチェックしてみてください。
 
 * https://github.com/dnesteryuk/site_prism.vcr
 
 # エピローグ
-So, we've seen how to use SitePrism to put together page objects made up
-of pages, elements, sections and iframes. But how to organise this stuff? There
-are a few ways of saving yourself having to create instances of pages
-all over the place. Here's an example of this common problem:
+
+ここまで、SitePrismを使ってページ、要素、セクション、iframeで構成されるページオブジェクトをまとめる方法を見てきました。しかし、これらをどのように整理するのでしょうか？
+あちこちにページのインスタンスを作成する手間を省く方法がいくつかあります。
+このよくある問題の一例をご紹介します。
 
 ```ruby
 @home = Home.new # <-- noise
@@ -1510,9 +1494,8 @@ all over the place. Here's an example of this common problem:
 expect(@results_page).to have_search_result_items
 ```
 
-The annoyance (and, later, maintenance nightmare) is having to create
-`@home` and `@results_page`. It would be better to not have to create
-instances of pages all over your tests.
+厄介なのは(後にメンテナンスの悪夢となる) `@home` と `@results_page` を作成しなければならないことです。
+テスト全体にページのインスタンスを作成しない方が良いでしょう。
 
 ページインスタンスを返すメソッドを含むクラスを作ることで、この問題に対処する
 Eg:
@@ -1568,6 +1551,4 @@ end
 # etc...
 ```
 
-The only thing that needs instantiating is the App class - from then on
-pages don't need to be initialized, they are now returned by methods on
-@app. Maintenance win!
+インスタンス化が必要なのはAppクラスだけです - それ以降はページを初期化する必要はありません。メンテナンスの勝利です。
