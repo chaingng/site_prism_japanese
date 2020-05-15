@@ -607,12 +607,10 @@ the default Capybara wait time:
 
 ### すべてのマッピングした要素がページ中に存在するかチェックする
 
-Throughout my time in test automation I keep getting asked to provide the
-ability to check that all elements that should be on the page are on the
-page. Why people would want to test this, I don't know. But if that's
-what you want to do, SitePrism provides the `#all_there?` method that
-will return true if all mapped elements (and sections... see below) are
-present in the browser, false if they're not all there.
+テスト自動化の仕事をしている間、私はページ上にあるべきすべての要素がページ上にあることをチェックする機能を提供するように求められ続けています。
+なぜ人々はこれをテストしたがるのか 私にはわかりません
+しかし、それがあなたがしたいことであれば、 SitePrism は `#all_there?` メソッドを提供します。これは、マップされたすべての要素 (とセクション... 後述) がブラウザに存在する場合は true を返し、すべてが存在しない場合は false を返します。
+
 
 ```ruby
 @friends_page.all_there? #=> true/false
@@ -630,11 +628,7 @@ SitePrismは各ページに何度も表示されるページのセクション�
 SitePrismはこれを実現するためにSectionを提供する.
 
 ### 単一のセクション
-In the same way that SitePrism provides `element` and `elements`, it
-provides `section` and `sections`. The first returns an instance of a
-page section, the second returns an array of section instances, one for
-each capybara element found by the supplied css selector. What follows
-is an explanation of `section`.
+SitePrismが`element`と`elements`を提供するのと同じように、`section`と`section`を提供します。最初のものはページのセクションのインスタンスを返し、2番目のものはセクションのインスタンスの配列を返します。以下の内容は `section` の説明です。
 
 
 #### セクションの定義
@@ -657,23 +651,15 @@ class Home < SitePrism::Page
 end
 ```
 
-The way to add a section to a page (or another section -
-SitePrism allows adding sections to sections) is to call the `section`
-method. It takes 3 arguments: the first is the name of the section as
-referred to on the page (sections that appear on multiple pages can be
-named differently). The second argument is the class of which an
-instance will be created to represent the page section, and the third
-argument is a css selector that identifies the root node of the section
-on this page (note that the css selector can be different for different
-pages as the whole point of sections is that they can appear in
-different places on different pages).
+ページにセクションを追加する方法 (または別のセクション -) SitePrismではセクションにセクションを追加することができます)は、`section`を呼び出すことです。メソッドを使用します。これは3つの引数をとります。ページで参照されているセクション（複数のページに表示されているセクションは 別々に命名されています)。
+第二引数は インスタンスが作成されます。
+引数はセクションのルートノードを識別するCSSセレクタです。このページでは (CSS セレクタは異なる場合があることに注意してください。セクションの全体的なポイントは、それらが ページの異なる場所にある)。
 
 #### ページ中のセクションへのアクセス
 
-The `section` method (like the `element` method) adds a few methods to
-the page or section class it was called against. The first method that
-is added is one that returns an instance of the section, the method name
-being the first argument to the `section` method. Here's an example:
+section`メソッドは(`element`メソッドと同様に)それが呼び出されたページやセクションクラスにいくつかのメソッドを追加します。
+追加される最初のメソッドはセクションのインスタンスを返すもので、メソッド名は `section` メソッドの最初の引数になります。以下に例を示します。
+
 
 ```ruby
 # the section:
@@ -693,14 +679,10 @@ end
 @home.menu #=> <MenuSection...>
 ```
 
-When the `menu` method is called against `@home`, an instance of
-`MenuSection` (the second argument to the `section` method) is returned.
-The third argument that is passed to the `section` method is the css
-selector that will be used to find the root element of the section; this
-root node becomes the 'scope' of the section.
+menu`メソッドが `@home` に対して呼び出されると、`MenuSection` (`section`メソッドの第2引数) のインスタンスが返されます。
+section`メソッドに渡される第3引数は、セクションのルート要素を見つけるために使われるCSSセレクタです。
 
-The following shows that though the same section can appear on multiple
-pages, it can take a different root node:
+以下に示すように、同じセクションが複数のページに表示されても、異なるルートノードを取ることができます。
 
 ```ruby
 # define the section that appears on both pages
@@ -719,10 +701,8 @@ class SearchResults < SitePrism::Page
 end
 ```
 
-You can see that the `MenuSection` is used in both the `Home` and
-`SearchResults` pages, but each has slightly different root node. The
-capybara element that is found by the css selector becomes the root node
-for the relevant page's instance of the `MenuSection` section.
+Home` と `SearchResults` の両方のページで `MenuSection` が使われていることがわかりますが、それぞれのページのルートノードは少しずつ異なります。
+cssセレクタで見つかったカピバラ要素が `MenuSection` セクションの該当ページのインスタンスのルートノードになります。
 
 #### セクションへの要素追加
 
@@ -736,9 +716,8 @@ class MenuSection < SitePrism::Section
 end
 ```
 
-Note that the css selectors used to find elements are searched for
-within the scope of the root element of that section. The search for the
-element won't be page-wide but it will only look in the section.
+要素の検索に使われるCSSセレクタは、そのセクションのルート要素の範囲内で検索されることに注意してください。
+要素の検索はページ全体ではなく、セクション内でのみ検索されます。
 
 ページにセクションが追加されると...
 
@@ -775,8 +754,8 @@ end
 
 ##### ブロックを利用したセクション要素へのアクセス
 
-Sections have a `within` method that allows scoped access to the section's elements inside a block.  This is similar to Capybara's `within` method and allows for shorter test code particularly with nested sections.
-Some of this test code can be made a little prettier by simply passing a block in.
+セクションには `within` メソッドがあり、ブロック内のセクションの要素へのスコープ付きアクセスを可能にします。 これは Capybara の `within` メソッドに似ており、特に入れ子になったセクションのテストコードを短くすることができます。
+このテストコードのいくつかは、単にブロックを渡すだけで、もう少しきれいにすることができます。
 
 ```ruby
 Then /^the home page menu contains a link to the various search functions$/ do
@@ -842,10 +821,9 @@ end
 
 #### セクションの存在をテスト
 
-Just like elements, it is possible to test for the existence of a
-section. The `section` method adds a method called `has_<section name>?`
-to the page or section it's been added to - same idea as what the
-`has_<element name>?` method. Given the following setup:
+elementと同じように、存在するかどうかをテストすることができます。
+というメソッドを追加します。セクション`メソッドは `has_<section name>?` というメソッドをページやセクションに追加します - `has_<element name>? 以下の設定があるとします。
+
 
 ```ruby
 class MenuSection < SitePrism::Section
@@ -876,11 +854,8 @@ expect(@home).not_to have_menu
 
 #### セクションが出現するのを待つ
 
-Another method added to the page or section by the `section` method is
-`wait_for_<section name>`. Similar to what `element` does, this method
-waits for the section to appear - the test will wait up to capybara's
-default wait time until the root node of the element exists on the
-page/section that our section was added to. Given the following setup:
+section`メソッドでページやセクションに追加されるもう一つのメソッドが `wait_for_<section name>` です。テストは、セクションが追加されたページ/セクションに要素のルートノードが存在するまで、capybaraのデフォルトの待ち時間まで待ちます。以下の設定があるとします。
+
 
 ```ruby
 class MenuSection < SitePrism::Section
@@ -914,8 +889,8 @@ end
 @home.wait_until_menu_invisible
 ```
 
-Again, as for an element, it is possible to give a specific amount of
-time to wait for visibility/invisibility of a section. Here's how:
+繰り返しになりますが、要素については、セクションの可視化/可視化を待つために特定の時間を与えることができます。ここではその方法を紹介します
+
 
 ```ruby
 @home = Home.new
@@ -999,19 +974,14 @@ expect(@home.menu).to have_title
 
 ### セクション集合
 
-An individual section represents a discrete section of a page, but often
-sections are repeated on a page, an example is a search result listing -
-each listing contains a title, a url and a description of the content.
-It makes sense to model this only once and then to be able to access
-each instance of a search result on a page as an array of SitePrism
-sections. To achieve this, SitePrism provides the `sections` method that
-can be called in a page or a section.
+個々のセクションはページの離散的なセクションを表しますが、多くの場合、セクションはページ上で繰り返され、例としては検索結果のリストです - 各リストはタイトル、URL、およびコンテンツの説明を含んでいます。
+これを一度だけモデル化して、ページ上の検索結果の各インスタンスにSitePrismのセクションの配列としてアクセスできるようにすることは理にかなっています。
+これを実現するために、SitePrism は `sections` メソッドを提供します。
 
-The only difference between `section` and `sections` is that whereas the
-first returns an instance of the supplied section class, the second
-returns an array containing as many instances of the section class as
-there are capybara elements found by the supplied css selector. This is
-better explained in code :)
+
+`section`と`sections`の唯一の違いは、前者が与えられたセクションクラスのインスタンスを返すのに対し、後者は与えられた css セレクタで見つかった capybara 要素の数だけセクションクラスのインスタンスを含む配列を返すことです。
+これはコードで説明されています :)
+
 
 #### セクション集合をページ(or他のセクション)に追加
 
@@ -1050,19 +1020,17 @@ Then /^there are lots of search_results$/ do
 end
 ```
 
-The css selector that is passed as the 3rd argument to the
-`sections` method ("#results li") is used to find a number of capybara
-elements. Each capybara element found using the css selector is used to
-create a new instance of the `SearchResultSection` and becomes its root
-element. So if the css selector finds 3 `li` elements, calling
-`search_results` will return an array containing 3 instances of
-`SearchResultSection`, each with one of the `li` elements as it's root
-element.
+第3引数として渡されるCSSセレクタ。
+`sections` メソッド ("#results li") を使って多数のカピバラ要素を見つけます。
+
+cssセレクタを使って見つかった各カピバラ要素は `SearchResultSection` の新しいインスタンスを作成するために使われ、そのルート要素になります。
+
+つまり、もし css セレクタが 3 つの `li` 要素を見つけた場合、 `search_results` を呼び出すと `SearchResultSection`の3つのインスタンスを含む配列が返され、それぞれが `li` 要素の 1 つをルート要素とします。
+
 
 #### 匿名セクション集合
 
-You can define collections of anonymous sections the same way you would
-define a single anonymous section:
+匿名セクションのコレクションは、単一の匿名セクションを定義するのと同じ方法で定義できます。
 
 ```ruby
 class SearchResults < SitePrism::Page
@@ -1075,11 +1043,11 @@ end
 
 #### セクションが存在するかテストする
 
-Using the example above, it is possible to test for the existence of the
-sections. As long as there is at least one section in the array, the
-sections exist. The `sections` method adds a `has_<sections name>?`
-method to the page/section that our section has been added to. Given the
-following example:
+上記の例を用いて，セクションが存在するかどうかをテストすることができます．
+
+配列の中に少なくとも一つのセクションが存在する限り、セクションは存在します。メソッドは `has_<セクション名>?` メソッドをセクションが追加されたページ/セクションに追加します。
+
+以下の例を考えてみましょう。
 
 ```ruby
 class SearchResultSection < SitePrism::Section
@@ -1110,10 +1078,8 @@ end
 
 #### セクションが出現するのを待つ
 
-The final method added by `sections` to the page/section we're adding
-our sections to is `wait_for_<sections name>`. It will wait for
-capybara's default wait time for there to be at least one instance of
-the section in the array of sections. For example:
+セクションを追加するページ/セクションに `sections` が追加した最後のメソッドは `wait_for_<セクション名>` です。
+これは、セクションの配列の中にセクションのインスタンスが少なくともひとつ存在するまで、 capybara のデフォルトの待ち時間を待ちます。例えば
 
 ```ruby
 class SearchResultSection < SitePrism::Section
@@ -1137,15 +1103,12 @@ end
 
 ## Load Validations
 
-Load validations enable common validations to be abstracted and performed on a Page or Section to determine
-when it has finished loading and is ready for interaction in your tests.
+ロードバリデーションを使うと、一般的なバリデーションを抽象化してページやセクションに対して実行することができ、 ロードが終了してテストの準備が整ったかどうかを判断することができます。
 
-For example, suppose you have a page which displays a 'Loading...' message while the body of
-the page is loaded in the background.  Load validations can be used to ensure tests wait for the correct url
-to be displayed and the loading message removed before trying to interact with with the page.
+たとえば、ページの本文がバックグラウンドで読み込まれている間に 'Loaded...' メッセージを表示するページがあるとします。 ロードバリデーションを使うことで、テストが正しい URL が表示され、ページとのやりとりを試みる前にロード中のメッセージが取り除かれるのを確実に待つことができます。
 
-Other use cases include Sections which are displayed conditionally and may take time to become ready to
-interact with, such as animated lightboxes.
+その他の利用例としては、条件付きで表示され、アニメーション化されたライトボックスのように対話できるようになるまでに時間がかかるセクションなどがあります。
+
 
 ### Load Validationsの使用
 Load validations can be used in three constructs:
@@ -1170,12 +1133,11 @@ end
 
 #### Loadable#when_loaded
 
-The `Loadable#when_loaded` method on a Loadable class instance will yield the instance of the class into a
-block after all load validations have passed.
+Loadableクラスのインスタンスに対する `Loadable#when_loaded` メソッドは、すべてのロードバリデーションに合格した後、そのクラスのインスタンスをブロックに渡します。
 
-If any load validation fails, an error will be raised with the reason, if given, for the failure.
+ロードバリデーションが失敗した場合は、エラーが発生し、その理由が与えられている場合には、その理由とともにエラーが発生します。
 
-Example:
+例:
 
 ```ruby
 # Execute a block after all load validations pass:
@@ -1186,12 +1148,14 @@ end
 
 #### Loadable#loaded?
 
-You can explicitly run load validations on a Loadable via the `loaded?` method.
-This method will execute all load validations on the object and return a boolean value.
-In the event of a validation failure, a validation error can be accessed via the `load_error`
-method on the object, if any error message was emitted by the failing validation.
+ロード可能なオブジェクトに対して明示的にロードバリデーションを実行するには、`loaded?`メソッドを使います。
 
-Example:
+このメソッドはオブジェクトに対してすべてのロードバリデーションを実行し、ブール値を返します。
+
+バリデーションに失敗した場合、バリデーションエラーは 
+オブジェクトの `load_error` メソッドからアクセスされます。
+
+例:
 
 ```ruby
 it 'loads the page' do
@@ -1203,7 +1167,7 @@ end
 ```
 
 ### Load Validationsの定義
-A load validation is a block which returns a boolean value when evaluated against an instance of the Loadable.
+ロードバリデーションは、Loadableのインスタンスに対して評価されたときにブール値を返すブロックです。
 
 ```ruby
 class SomePage < SitePrism::Page
@@ -1222,15 +1186,13 @@ class SomePage < SitePrism::Page
 end
 ```
 
-Load validations may be defined on `SitePrism::Page` and `SitePrism::Section` classes (herein referred
-to as `Loadables`) and are evaluated against an instance of the class when executed.
+ロードバリデーションは `SitePrism::Page` および `SitePrism::Section` クラス (ここでは `Loadables` と呼ぶ) で定義され、実行時にクラスのインスタンスに対して評価されます。
 
 ### Load Validation Inheritance and Execution Order
 
-Any number of load validations may be defined on a Loadable class and will be inherited by its subclasses.
+ロードバリデーションをいくつでも定義することができ、そのサブクラスに継承されます。
 
-Load validations are executed in the order that they are defined.  Inherited load validations are executed
-from the top of the inheritance chain (e.g. `SitePrism::Page` or `SitePrism::Section`) to the bottom.
+ロードバリデーションは定義された順に実行されます。 継承されたロードバリデーションは、継承チェーンの先頭から下に向かって実行されます (例: `SitePrism::Page` や `SitePrism::Section`)。
 
 For example:
 
@@ -1257,14 +1219,15 @@ end
 
 上の例では `loaded?`は `FooPage`として呼ばれ、バリデーションは次の順序で実行される:
 
-1. The `SitePrism::Page` default load validation will check `displayed?`
-2. The `BasePage` load validation will wait for the loading message to disappear.
-3. The `FooPage` load validation will wait for the `form` element to be present.
-4. The `FooPage` load validation will wait for the `some_other_element` element to be present.
 
-NOTE: `SitePrism::Page` includes a default load validation on `page.displayed?` which is applied
-to all pages.  It is therefore not necessary to define a load validation for this condition on
-inheriting page objects.
+1. SitePrism::Page` のデフォルトの読み込み検証は `displayed?をチェック
+2. `BasePage` の読み込み検証は読み込みメッセージが消えるのを待つ
+3. `FooPage` のロードバリデーションは `form` 要素が存在するのを待つ
+4. `FooPage` の読み込み検証は `some_other_element` 要素が存在するのを待つ
+
+
+NOTE: `SitePrism::Page` にはデフォルトで `page.display?` のロードバリデーションが含まれており、これはすべてのページに適用されます。 
+したがって、ページオブジェクトを継承する際にこの条件のロードバリデーションを定義する必要はありません。
 
 ## Capybara Query Optionsを使用
 要素、セクション、または要素やセクションのコレクションにクエリを実行する際に、要素やセクションのメソッドの引数としてCapybaraのクエリオプションを与えることができます。
